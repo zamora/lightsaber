@@ -16,7 +16,7 @@
 (require pict)
 
 ; Contract for the allowed hilt styles
-(define hilt-style? (flat-contract (one-of/c 'luke 'vader 'obi-wan 'anakin)))
+(define hilt-style? (flat-contract (one-of/c 'luke 'vader 'obi-wan 'anakin 'kylo)))
 
 ; Generate a shade of gray
 (define (gray level)
@@ -29,8 +29,11 @@
 
 ; Create a pict of a lightsaber.  Accept a color object or a color name.
 ; An optional length can be specified (useful for animating blade extension)
-(define/contract (lightsaber color [length 400] [hilt-style 'luke])
-  (->* ((or/c string? (is-a?/c color%))) (nonnegative-integer? hilt-style?) pict?)
+(define/contract (lightsaber color
+                             #:length [length 400]
+                             #:style [hilt-style 'luke])
+  (->* ((or/c string? (is-a?/c color%))) (#:length nonnegative-integer?
+                                          #:style hilt-style?) pict?)
   (define color-obj (cond
                       [(string? color) (send the-color-database find-color color)]
                       [else color]))
@@ -140,5 +143,5 @@
 ; Test cases
 (lightsaber "Crimson")
 (lightsaber "DodgerBlue")
-(lightsaber "Lime" 250)
+(lightsaber "Lime" #:length 250)
 (lightsaber (make-color 144 67 202))
