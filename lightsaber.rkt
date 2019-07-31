@@ -370,17 +370,18 @@
      (inset (filled-rectangle 12 5 #:color (gray 235) #:border-width 2) 28 9 0 0)
      (inset (filled-rectangle 12 5 #:color "Red" #:border-width 2) 55 9 0 0))))
 
-; Test cases
-(lightsaber "DodgerBlue")
-(lightsaber "Lime" #:length 250)
-(lightsaber "Crimson" #:style 'vader)
-(lightsaber (make-color 144 67 202) #:style 'kylo)
-(lightsaber "DeepPink" #:style 'maul)
+(module+ main
+  ; Test cases
+  (lightsaber "DodgerBlue")
+  (lightsaber "Lime" #:length 250)
+  (lightsaber "Crimson" #:style 'vader)
+  (lightsaber (make-color 144 67 202) #:style 'kylo)
+  (lightsaber "DeepPink" #:style 'maul)
 
-; Let's make a double-bladed lightsaber!
-(define single (lightsaber "Gold" #:length 200 #:style 'maul))
-(define double (hc-append (flip-horizontal single) single))
-double
+  ; Let's make a double-bladed lightsaber!
+  (define single (lightsaber "Gold" #:length 200 #:style 'maul))
+  (define double (hc-append (flip-horizontal single) single))
+  double)
 
 #|
 Thoughts
